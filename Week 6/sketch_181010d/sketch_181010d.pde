@@ -1,70 +1,49 @@
 // Code 1 FA_18
 // Bryan Ma
 
-// 2d arrays part 2
+// 2d arrays part 3
 
-// this sketch uses a 2d array of booleans.
-// it fills the array based on the value of i and j in the loop, seeing if its
-//  halfway through the loop in that dimension. if it is, it sets the value to true.
-// in the draw loop, based on if the boolean is true or not, it sets the color of an
-//  ellipse being drawn. 
+// this sketch uses a 2d array of floats, used to store values that will be used as 
+//  angles for matrix transformations. it creates the array with random angles, 
+//  then draws lines at those angles in the draw loop.
 
-// add an additional 2d array that will be used to store the sizes of each of the 
-//  ellipses being drawn. that is, some ellipses should be large, some should be small, 
-//  etc. Map the value in the setup loops. for example, the ellipses should be large 
-//  on the left and small on the right. 
-// Replace the w and h values filling the ellipse with the new values from your new
-//  ellipse size 2d array.
+// change the sketch so that the angles in setup are mapped somehow to the value of 
+//  i and/or j. then in the draw loop, change the value of the angle at every position
+//  in the 2d array by some amount, to make each line rotate. (see the gif in this folder for an example)
+// experiment with sizes, shapes, colors, and adding additional 2d arrays to create 
+// more values to store, draw with, and modify at runtime. 
 
-int gridW = 10;
-int gridH = 10;
-float[][] size  = new float[gridW][gridH];
-boolean[][] isRed = new boolean[gridW][gridH];
+int gridW = 20;
+int gridH = 20;
+
+float[][] angles = new float[gridW][gridH];
+float[][] rotateAngleBy = new float[gridW][gridH];
 
 void setup() {
   size(800, 800);
-  noStroke();
+  stroke(255);
   for (int i = 0; i < gridW; i++) {
     for (int j = 0; j < gridH; j++) {
-      if (i >= gridW/2 && j >= gridH/2) {
-        isRed[i][j] = true;
-       // size[i][j] = 15;
-      } else {
-        isRed[i][j] = false;
-        //size[i][j] = 15;
-      }
-    }
-  }
-  for (int i = 0; i < gridW; i++) {
-    for (int j = 0; j < gridH; j++) {
-      if (i >= gridW/2) {
-        size[i][j] = 30;
-      } else {
-        size[i][j] = 60;
-      }
+      angles[i][j] = map(i, 0, gridW, 0, 180);
+      rotateAngleBy[i][j] = random(1,5);
     }
   }
 }
 
 void draw() {
-  float siz;
   background(0);
+  
   for (int i = 0; i < gridW; i++) {
     for (int j = 0; j < gridH; j++) {
-      siz = size[i][j];
-      if (isRed[i][j] == true) {
-        fill(200, 0, 0);
-        
-      } else {
-        fill(200, 200, 200);
-        
-      }
-      float w = width/gridW;
-      float h = height/gridH;
-      float xPos = i * width/gridW + w/2;
-      float yPos = j * height/gridH + h/2;
+      pushMatrix();
+      translate(i * width/gridW, j * height/gridH);
+      angles[i][j] += rotateAngleBy[i][j];
+      rotate(radians(angles[i][j]));
       
-      ellipse(xPos, yPos, siz, siz);
+      float x1 = (-width/gridW * 0.5) * 1;
+      float x2 = (width/gridW * 0.5) * 1;
+      line(x1, 0, x2, 0);
+      popMatrix();
     }
   }
 }
