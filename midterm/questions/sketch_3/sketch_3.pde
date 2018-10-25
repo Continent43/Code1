@@ -10,7 +10,7 @@ void setup() {
 
 void draw() {
   background(150);
-  if (mousePressed && mouseX > 200 && mouseX < 400 && mouseY < 400 && mouseY > 200) {
+  if (mousePressed && dist(mouseX, mouseY, width/2, height/2) < 100) {
     fill(255);
   } else {
     fill(150);

@@ -10,20 +10,27 @@
 // (for colors, angles, etc) if there is behavior that 
 // you want to change that doesn't involve positions.
 
-float[] xPositions = new float[100];
-float[] yPositions = new float[100];
+float[] xPositions = new float[50];
+float[] yPositions = new float[50];
 
 void setup() {
   size(600, 600);
   background(100);
-  for (int i = 0; i < xPositions.length; i++) {
-    xPositions[i] = random(50);
+  for (int i=0; i < xPositions.length; i++) {
+    xPositions[i] = width/2;
+    yPositions[i] = height/2;
   }
-  for (int i = 0; i < yPositions.length; i++) {
-    yPositions[i] = random(100);
-  }
+ 
 }
 
 void draw() {
-  ellipse(xPositions[],yPositions[], 50,50);
+  for (int i = 0; i<xPositions.length; i++) {
+    ellipse(xPositions[i], yPositions[i], 50, 50);
+    xPositions[i] += random(-5,5);
+    yPositions[i] += random(-5,5);
+
+    
+  
+  //ellipse(x,y, 50,50);
+}
 }

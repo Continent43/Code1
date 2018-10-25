@@ -23,8 +23,11 @@ void draw() {
   for (int i = 0; i < gridW; i++) {
     for (int j = 0; j < gridH; j++) {
       greyColors[i][j]+=1;
+      if (greyColors[i][j] > 255) {
+        greyColors[i][j] = 0;
+      }
       fill(greyColors[i][j]);
-      rect(0, 0, width/gridW, height/gridH);
+      rect(i * 60, j * 60, width/gridW, height/gridH);
     }
   }
 }

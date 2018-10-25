@@ -14,7 +14,7 @@ void setup() {
 
 void draw() {
   background(bgColor);
-  if (on == false) {
+  if (on) {
     bgColor = 255;
   } else {
     bgColor = 0;
@@ -22,10 +22,10 @@ void draw() {
 }
 
 void mouseReleased() {
-   on = true;
+   on = !on;
   
 }
 
 //void mousePressed() {
-//  on = false;
+//  on = !on;
 //}
