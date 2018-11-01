@@ -12,11 +12,12 @@
 // you can use a single image located in the sketch folder and instantiating the
 // pImage with the loadImage() function in the constructor of the object. 
 
-PImage[] MyClass = new PImage[3]; 
 ArrayList<MyClass> myArrayList = new ArrayList<MyClass>();
 
 void setup() {
   size(600, 600);
+  imageMode(CENTER);
+  
 }
 
 void draw() {
@@ -46,11 +47,13 @@ class MyClass {
   float x; 
   float y;
   float timeRemaining;
+  PImage img;
   
   MyClass(float x, float y) {
     this.x = x;
     this.y = y;
     this.timeRemaining = 180;
+    this.img = loadImage("sun.jpg");
   }
   
   void update() {
@@ -58,7 +61,9 @@ class MyClass {
   }
   
   void display() {
-    ellipse(x, y, timeRemaining, timeRemaining);
+    image(img, x, y, timeRemaining, timeRemaining);
+    
+    //ellipse(x, y, timeRemaining, timeRemaining);
   }
   
   boolean isTimeUp() {

@@ -4,7 +4,7 @@
 // this code is adapted from the Processing example "Sequential" by James Paterson.
 // this sketch loads in 12 separate images into an array of PImages, then plays
 // them sequentially in the draw loop.
- 
+
 // i will explain the "%" operator in class.
 
 // create your own image sequence. 
@@ -18,28 +18,44 @@
 int numFrames = 12;  // The number of frames in the animation
 int currentFrame = 0;
 PImage[] images = new PImage[numFrames];
-    
+Anim anime;
+
 void setup() {
   size(640, 360);
   frameRate(24);
   imageMode(CENTER);
-  
-  images[0]  = loadImage("PT_anim0000.gif");
-  images[1]  = loadImage("PT_anim0001.gif"); 
-  images[2]  = loadImage("PT_anim0002.gif");
-  images[3]  = loadImage("PT_anim0003.gif"); 
-  images[4]  = loadImage("PT_anim0004.gif");
-  images[5]  = loadImage("PT_anim0005.gif"); 
-  images[6]  = loadImage("PT_anim0006.gif");
-  images[7]  = loadImage("PT_anim0007.gif"); 
-  images[8]  = loadImage("PT_anim0008.gif");
-  images[9]  = loadImage("PT_anim0009.gif"); 
-  images[10] = loadImage("PT_anim0010.gif");
-  images[11] = loadImage("PT_anim0011.gif"); 
+  anime = new Anim();
 } 
- 
+
 void draw() { 
   background(0);
-  currentFrame = (currentFrame+1) % numFrames;
-  image(images[currentFrame], width/2, height/2);
- }
+  anime.update();
+  anime.display();
+}
+
+class Anim {
+  float x, y;
+  int numFrames;
+  int currentFrame;
+  PImage[] frames;
+
+  Anim() {
+    numFrames = 4;
+    currentFrame = 0;
+    frames = new PImage[numFrames]; 
+
+    frames [0] = loadImage("sun.jpg");
+    frames [1] = loadImage("sun1.jpg");
+    frames [2] = loadImage("sun2.jpg");
+    frames [3] = loadImage("sun3.jpg");
+  }
+
+
+
+  void display() {
+    image(frames[currentFrame], width/2, height/2);
+  }
+  void update() {
+    currentFrame = (currentFrame+1) % numFrames;
+  }
+}

@@ -13,15 +13,24 @@
 // all the images by looping through the results of filling the
 // arrayOfPImages. 
 
-String[] arrayOfImageFilenames;
-PImage[] arrayOfPImages;
+String[] arrayOfImageFilenames = new String[4]; //{ "sun.jpg", "sun1.jpg", "sun2.jpg", "sun3.jpg"};
+PImage[] arrayOfPImages = new PImage[arrayOfImageFilenames.length];
 
 void setup() {
+  size(600,600);
+  for (int i=0; i < arrayOfImageFilenames.length; i++) {
+   arrayOfImageFilenames[i] = "sun" + i + ".jpg"; 
+  }
   for (int i = 0; i < arrayOfImageFilenames.length; i++) {
     arrayOfPImages[i] = loadImage(arrayOfImageFilenames[i]);  
   }
 }
 
 void draw() {
+  
+  for(int i = 0; i < arrayOfPImages.length; i++) {
+    float x = map(i, 0, arrayOfPImages.length - 1, 0, width-100);
+    image(arrayOfPImages[i], x, height/2, mouseX, mouseY);
+  }
   
 }
